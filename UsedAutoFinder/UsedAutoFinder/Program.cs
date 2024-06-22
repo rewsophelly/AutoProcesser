@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddOptions();
+
+builder.Services.Configure<CraigslistConfig>(builder.Configuration.GetSection("Craigslist"));
 builder.Services.AddCraigslistServices();
 
 builder.Services.AddTransient<ISearchService, SearchService>();

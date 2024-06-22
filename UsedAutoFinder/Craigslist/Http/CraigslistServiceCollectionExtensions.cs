@@ -13,7 +13,7 @@ namespace Craigslist.Http
             // var config = services.AddHttpClient
             services.AddKeyedTransient<IProviderSearchService, CraigslistSearchService>(Constants.Craigslist);
 
-            services.AddHttpClient(Constants.Craigslist, (serviceProvider, client) =>
+            services.AddHttpClient<CraigslistSearchService>((serviceProvider, client) =>
             {
                 var settings = serviceProvider.GetRequiredService<IOptions<CraigslistConfig>>().Value;
 

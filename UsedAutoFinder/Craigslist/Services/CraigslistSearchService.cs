@@ -3,14 +3,12 @@ using Common.Services;
 
 namespace Craigslist.Services
 {
-    public class CraigslistSearchService(IHttpClientFactory factory) : IProviderSearchService
+    public class CraigslistSearchService(HttpClient client) : IProviderSearchService
     {
-        private readonly IHttpClientFactory _httpClientFactory = factory;
+        private readonly HttpClient _httpClient = client;
 
         public async Task<IEnumerable<VehicleListing>> Search(SearchRequest request)
         {
-            var client = _httpClientFactory.CreateClient(Constants.Craigslist);
-
             await Task.CompletedTask;
 
             return
