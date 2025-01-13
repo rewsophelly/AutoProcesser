@@ -8,11 +8,17 @@ namespace UsedAutoFinder.Controllers
     {
         private readonly ISearchService _searchService = searchService;
 
-        public ActionResult Index() { return View(); }
-
-        public async Task<ActionResult> Search([FromBody] SearchRequest searchRequest)
+        public ActionResult Index()
         {
-            return new OkObjectResult(await _searchService.Search(searchRequest));
+            // await Search(new SearchRequest());
+            return View(Array.Empty<VehicleListing>());
+        }
+
+        public async Task<ActionResult> Search(string searchRequest)
+        {
+
+            var vehicles = await _searchService.Search(new SearchRequest());
+            return View("Index", vehicles);
         }
     }
 }

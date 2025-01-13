@@ -1,0 +1,110 @@
+﻿@using Common.Models
+@model IEnumerable<VehicleListing>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<head>
+</head>
+<body>
+    <style>
+        div {
+        }
+    </style>
+    <section class="jumbotron text-center">
+        <div class="container">
+            <form action="" id="searchForm">
+                <h1 class="jumbotron-heading">Vehicle Search</h1>
+                <p class="lead text-muted">Car searching made easy</p>
+                <p>
+                <p>
+                    <details>
+                        <summary>Providers</summary>
+                        <br />
+                        <input type="checkbox" id="craigslist" name="craigslist" checked>
+                        <label for="craigslist">Craigslist</label>
+                        <br />
+                        <input type="checkbox" id="facebook" name="facebook" checked>
+                        <label for="facebook">Facebook Marketplace</label>
+                        <br />
+                        <input type="checkbox" id="carssite" name="carssite" checked>
+                        <label for="carssite">Cars.Com</label>
+                        <br />
+                    </details>
+                </p>
+                <p>
+                    <details>
+                        <summary>Search Parameters</summary>
+                        <br />
+                        <span>
+                            <label for="make">Make:</label>
+                            <input type="text" id="make" name="make">
+                        </span>
+                        <br />
+                        <span>
+                            <label for="model">Model:</label>
+                            <input type="text" id="model" name="model">
+                        </span>
+                        <br />
+                        <span>
+                            <label for="year">Year:</label>
+                            <input type="number" id="year" name="year" pattern="[0-9]*">
+                        </span>
+                        <br />
+                        <span>
+                            <label for="year">ZipCode:</label>
+                            <input type="number" id="zipcode" name="zipcode" pattern="[0-9]*">
+                        </span>
+                        <br />
+                    </details>
+                </p>
+
+                <button id="searchButton" type="submit">Search</button>
+            </form>
+            </p>
+        </div>
+    </section>
+    <script>
+        let searchButton = document.getElementById('searchForm');
+        console.log('submitting');
+        console.log(searchButton);
+        searchButton.addEventListener("submit", (e) => {
+            e.preventDefault();
+            console.log('running');
+            // Step 1: Create an empty array
+            let queryParams = [];
+
+            // Step 2: Retrieve form fields
+            let make = document.getElementById('make').value;
+            let model = document.getElementById('model').value;
+            let year = document.getElementById('year').value;
+            let zipcode = document.getElementById('zipcode').value;
+
+            // Step 3: Add key-value pairs to the array
+            if (make) {
+                queryParams.push(`make=${encodeURIComponent(make)}`);
+            }
+            if (model) {
+                queryParams.push(`model=${encodeURIComponent(model)}`);
+            }
+            if (year) {
+                queryParams.push(`year=${encodeURIComponent(year)}`);
+            }
+            if (zipcode) {
+                queryParams.push(`zipcode=${encodeURIComponent(zipcode)}`);
+            }
+
+            // Step 4: Convert array to query string
+            let queryString = new URLSearchParams(queryParams).toString();
+
+            // Step 5: Append query string to URL
+            let newUrl = '/providers?' + queryString;
+
+            // Step 6: Redirect to new URL
+            window.location.href = newUrl;
+        });
+    </script>
+</body>
